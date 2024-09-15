@@ -1,0 +1,53 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Carrito de Compras</h1>
+
+    {% if carrito_items %}
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carrito_items %}
+                    <tr class="cart-item">
+                        <td><img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="img-fluid" style="max-width: 100px; height: auto;"></td>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ item.precio_unitario }}</td>
+                        <td>${{ item.total }}</td>
+                        <td>
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 cart-summary">
+            <h4>Resumen del Carrito</h4>
+            <p><strong>Total de Productos:</strong> {{ carrito_count }}</p>
+            <p><strong>Total:</strong> ${{ carrito_total }}</p>
+            <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg btn-block">Proceder al Pago</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        Tu carrito está vacío.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
