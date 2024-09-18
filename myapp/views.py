@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from .models import Producto
 
 # Create your views here.
 
@@ -17,6 +18,7 @@ def services(request):
 
 def carrito(request):
     return render(request, 'Carrito.html')
+
 def signup(request):
     if request.method == 'GET':
         return render(request, 'Signup.html', {
@@ -58,7 +60,15 @@ def signin(request):
         else:
             login(request, user)
             return redirect('Home')
-        
+
+def producto_detail(request, producto_slug):
+    producto = get_object_or_404(Producto, slug=producto_slug)
+    return render(request, 'producto_detail.html', {'producto': producto})
+
+def todos_productos(request):
+    productos = Producto.objects.all()
+    return render(request, 'Home.html', {'productos': productos})
+
 @login_required
 def signout(request):
     logout(request)

@@ -19,9 +19,8 @@ def productos_por_categoria(request, slug):
         'categoria': categoria,
         'productos': productos
     }
-    
     return render(request, 'productos_por_categoria.html', context)
 
-def detalle_producto(request, id):
-    producto = get_object_or_404(Producto, id=id)
-    return render(request, 'detalle_producto.html', {'producto': producto})
+def producto_detail(request, producto_slug):
+    producto = get_object_or_404(Producto, slug=producto_slug)
+    return render(request, 'producto_detail.html', {'producto': producto})

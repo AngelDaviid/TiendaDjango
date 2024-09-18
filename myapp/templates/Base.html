@@ -41,6 +41,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Tienda</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Categorías
@@ -52,7 +55,10 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Tienda</a>
+                    <a class="nav-link" href="#"><i class="fas fa-heart"></i> Favorito</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-box"></i> Mis Compras</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/carrito/">
@@ -61,12 +67,6 @@
                             <span class="badge badge-pill badge-warning">{{ carrito_count }}</span>
                         {% endif %}
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-heart"></i> Favorito</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-box"></i> Mis Compras</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout/"><i class="fas fa-sign-out-alt"></i> Salir</a>

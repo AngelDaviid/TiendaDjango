@@ -16,10 +16,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
                     <p class="card-text">{{ producto.descripcion }}</p>
-                    <a href="{% url 'categoria:detalle_producto' producto.id %}" class="btn btn-primary mb-2">Ver detalles</a>
+                    <a href="{% url 'productos_detalles' producto.slug %}" class="btn btn-primary mb-2">Ver detalles</a>
                     
-                    <!-- Botón para agregar al carrito -->
-                    <form method="POST" action="">
+                    <form action="/carrito/" method="POST">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success">Agregar al carrito</button>
                     </form>
