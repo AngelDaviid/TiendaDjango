@@ -65,9 +65,13 @@ def producto_detail(request, producto_slug):
     producto = get_object_or_404(Producto, slug=producto_slug)
     return render(request, 'producto_detail.html', {'producto': producto})
 
-def todos_productos(request):
+
+def producto(request):
     productos = Producto.objects.all()
-    return render(request, 'Home.html', {'productos': productos})
+    print(f"Número de productos: {productos.count()}")  # Verifica cuántos productos hay
+    return render(request, 'Home.html', {
+        'productos': productos
+    })
 
 @login_required
 def signout(request):

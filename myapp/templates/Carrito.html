@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Carrito de Compras</h1>
 
-    {% if carrito_items %}
+    {% if carrito.items.all %}
     <div class="row">
         <div class="col-md-8">
             <table class="table table-bordered">
@@ -19,15 +19,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in carrito_items %}
+                    {% for item in carrito.items.all %}
                     <tr class="cart-item">
-                        <td><img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="img-fluid" style="max-width: 100px; height: auto;"></td>
-                        <td>{{ item.producto.nombre }}</td>
-                        <td>{{ item.cantidad }}</td>
-                        <td>${{ item.precio_unitario }}</td>
-                        <td>${{ item.total }}</td>
                         <td>
-                            <form method="POST" action="">
+                            <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="img-fluid" style="max-width: 100px; height: auto;">
+                        </td>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>
+                            <!-- Formulario para actualizar la cantidad -->
+                            <form method="POST" action="{% url 'actualizar_cantidad' item.producto.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" class="form-control" style="width: 80px; display: inline;">
+                                <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                            </form>
+                        </td>
+                        <td>${{ item.producto.precio }}</td>
+                        <td>${{ item.subtotal }}</td>
+                        <td>
+                            <!-- Formulario para eliminar el producto del carrito -->
+                            <form method="POST" action="{% url 'eliminar_del_carrito' item.producto.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
@@ -39,8 +49,8 @@
         </div>
         <div class="col-md-4 cart-summary">
             <h4>Resumen del Carrito</h4>
-            <p><strong>Total de Productos:</strong> {{ carrito_count }}</p>
-            <p><strong>Total:</strong> ${{ carrito_total }}</p>
+            <p><strong>Total de Productos:</strong> {{ carrito.items.count }}</p>
+            <p><strong>Total:</strong> ${{ carrito.total }}</p>
             <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg btn-block">Proceder al Pago</a>
         </div>
     </div>

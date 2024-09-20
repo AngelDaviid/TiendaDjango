@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),  # Incluyendo el archivo urls.py de myapp
     path('categoria/', include('categoria.urls')),  # Incluyendo el archivo urls.py de categoria
+    path('carrito/', include('carrito.urls')),
 ]
 
 if settings.DEBUG:

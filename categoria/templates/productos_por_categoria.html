@@ -15,8 +15,8 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <p class="card-text">{{ producto.descripcion }}</p>
-                    <a href="{% url 'productos_detalles' producto.slug %}" class="btn btn-primary mb-2">Ver detalles</a>
+                    <p class="card-text">{{ producto.descripcion|slice:":100" }}... </p>
+                    <a href="{% url 'producto_detalles' producto.slug %}" class="btn btn-primary mb-2">Ver detalles</a>
                     
                     <form action="/carrito/" method="POST">
                         {% csrf_token %}
